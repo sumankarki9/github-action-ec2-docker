@@ -17,5 +17,20 @@ resource "aws_instance" "ec2" {
     associate_public_ip_address = true
     tags = {
         Name = "ec2-docker-deploy"
-    }  
+    }
+    user_data = <<-EOF
+                #!/bin/bash
+                sudo apt update -y
+                sudo apt install docker.io -y
+                sudo systemctl enable docker
+                sudo systemctl start docker
+                docker run -d -p 80:80 ${var.docker_image}
+                EOF
+
+
+
+    } 
+variable "docker_image" {
+    description = "Docker image to deploy"
+    type = string  
 }
