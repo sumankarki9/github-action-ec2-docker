@@ -9,7 +9,11 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            -
+            - 
+                name: checkout repository
+                uses: actions/checkout@v2
+                
+            -    
                 name: login to Docker Hub
                 uses: docker/login-action@v2
                 with:
@@ -30,7 +34,11 @@ jobs:
                 name: set up terraform
                 uses: hashicorp/setup-terraform@v2
                 with: 
-                    terraform_version: 1.5.0                
+                    terraform_version: 1.5.0    
+                    
+            -
+                name: List files
+                run: ls -la
             - 
                 name: Terraform Init
                 run: terraform init
