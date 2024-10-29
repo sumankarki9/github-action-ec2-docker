@@ -1,0 +1,21 @@
+terraform {
+    required_providers {
+        aws = {
+            source = "hashicorp/aws"
+            version = "5.72.1"
+        }
+    }
+}
+
+provider "aws" {
+    region = "us-east-1"
+}
+
+resource "aws_instance" "ec2" {
+    ami = "ami-0866a3c8686eaeeba"
+    instance_type = "t2.micro"
+    associate_public_ip_address = true
+    tags = {
+        Name = "ec2-docker-deploy"
+    }  
+}
